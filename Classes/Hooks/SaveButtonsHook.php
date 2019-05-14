@@ -24,14 +24,12 @@ Class SaveCloseHook
         $saveButton = $buttons[\TYPO3\CMS\Backend\Template\Components\ButtonBar::BUTTON_POSITION_LEFT][2][0];
         if ($saveButton instanceof InputButton) {
           $iconFactory = GeneralUtility::makeInstance(\TYPO3\CMS\Core\Imaging\IconFactory::class);
-          $lang = GeneralUtility::makeInstance('TYPO3\\CMS\\Lang\\LanguageService');
-          $lang->init(trim(GeneralUtility::_POST('language')));
-
+        
           $saveCloseButton = $buttonBar->makeInputButton()
             ->setName('_saveandclosedok')
             ->setValue('1')
             ->setForm($saveButton->getForm())
-            ->setTitle($lang->sL('LLL:EXT:core/Resources/Private/Language/locallang_core.xlf:rm.saveCloseDoc'))
+            ->setTitle($this->getLanguageService()->sL('LLL:EXT:core/Resources/Private/Language/locallang_core.xlf:rm.saveCloseDoc'))
             ->setIcon($iconFactory->getIcon('actions-document-save-close', \TYPO3\CMS\Core\Imaging\Icon::SIZE_SMALL))
             ->setShowLabelText(true);
 
@@ -39,4 +37,13 @@ Class SaveCloseHook
         }
         return $buttons;
     }
+    
+    /**
+	 * Returns the language service
+	 * @return LanguageService
+	 */
+	protected function getLanguageService()
+	{
+		return $GLOBALS['LANG'];
+	}
 }
