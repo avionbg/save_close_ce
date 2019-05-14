@@ -1,6 +1,6 @@
 # save_close_ce
 
-Add save and close button!
+Add save and close button to TYPO3 backend content editing.
 
 ## What does it do?
 
