@@ -11,5 +11,10 @@
   "require": {
     "php": "^7.",
     "typo3/cms-core": "^9.5 || ^10.2"
+  },
+  "extra": {
+		"typo3/cms": {
+			"extension-key": "save_close_ce"
+    }
   }
 }
