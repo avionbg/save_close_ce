@@ -2,6 +2,10 @@
 
 namespace Goran\SaveCloseCe\Hooks;
 
+use TYPO3\CMS\Backend\Template\Components\ButtonBar;
+use TYPO3\CMS\Core\Imaging\Icon;
+use TYPO3\CMS\Core\Imaging\IconFactory;
+use TYPO3\CMS\Core\Localization\LanguageService;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Backend\Template\Components\Buttons\InputButton;
 
@@ -11,7 +15,7 @@ use TYPO3\CMS\Backend\Template\Components\Buttons\InputButton;
  * Class SaveButtonHook
  * @package Goran\SaveCloseCe\Hooks
  */
-Class SaveCloseHook
+class SaveCloseHook
 {
     /**
      * @param array $params
@@ -21,29 +25,30 @@ Class SaveCloseHook
     public function addSaveCloseButton($params, &$buttonBar)
     {
         $buttons = $params['buttons'];
-        $saveButton = $buttons[\TYPO3\CMS\Backend\Template\Components\ButtonBar::BUTTON_POSITION_LEFT][2][0];
+        $saveButton = $buttons[ButtonBar::BUTTON_POSITION_LEFT][2][0];
         if ($saveButton instanceof InputButton) {
-          $iconFactory = GeneralUtility::makeInstance(\TYPO3\CMS\Core\Imaging\IconFactory::class);
-        
-          $saveCloseButton = $buttonBar->makeInputButton()
-            ->setName('_saveandclosedok')
-            ->setValue('1')
-            ->setForm($saveButton->getForm())
-            ->setTitle($this->getLanguageService()->sL('LLL:EXT:core/Resources/Private/Language/locallang_core.xlf:rm.saveCloseDoc'))
-            ->setIcon($iconFactory->getIcon('actions-document-save-close', \TYPO3\CMS\Core\Imaging\Icon::SIZE_SMALL))
-            ->setShowLabelText(true);
+            /** @var IconFactory $iconFactory */
+            $iconFactory = GeneralUtility::makeInstance(IconFactory::class);
 
-          $buttons[\TYPO3\CMS\Backend\Template\Components\ButtonBar::BUTTON_POSITION_LEFT][2][] = $saveCloseButton;
+            $saveCloseButton = $buttonBar->makeInputButton()
+                ->setName('_saveandclosedok')
+                ->setValue('1')
+                ->setForm($saveButton->getForm())
+                ->setTitle($this->getLanguageService()->sL('LLL:EXT:core/Resources/Private/Language/locallang_core.xlf:rm.saveCloseDoc'))
+                ->setIcon($iconFactory->getIcon('actions-document-save-close', Icon::SIZE_SMALL))
+                ->setShowLabelText(true);
+
+            $buttons[ButtonBar::BUTTON_POSITION_LEFT][2][] = $saveCloseButton;
         }
         return $buttons;
     }
-    
+
     /**
-	 * Returns the language service
-	 * @return LanguageService
-	 */
-	protected function getLanguageService()
-	{
-		return $GLOBALS['LANG'];
-	}
+     * Returns the language service
+     * @return LanguageService
+     */
+    protected function getLanguageService()
+    {
+        return $GLOBALS['LANG'];
+    }
 }
