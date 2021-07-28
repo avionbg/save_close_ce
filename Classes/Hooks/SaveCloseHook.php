@@ -2,6 +2,8 @@
 
 namespace Goran\SaveCloseCe\Hooks;
 
+use TYPO3\CMS\Backend\Template\Components\ButtonBar;
+use TYPO3\CMS\Core\Imaging\IconFactory;
 use TYPO3\CMS\Core\Localization\LanguageService;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Backend\Template\Components\Buttons\InputButton;
@@ -22,9 +24,10 @@ class SaveCloseHook
     public function addSaveCloseButton($params, &$buttonBar)
     {
         $buttons = $params['buttons'];
-        $saveButton = $buttons[\TYPO3\CMS\Backend\Template\Components\ButtonBar::BUTTON_POSITION_LEFT][2][0];
+        $saveButton = $buttons[ButtonBar::BUTTON_POSITION_LEFT][2][0];
         if ($saveButton instanceof InputButton) {
-            $iconFactory = GeneralUtility::makeInstance(\TYPO3\CMS\Core\Imaging\IconFactory::class);
+            /** @var IconFactory $iconFactory */
+            $iconFactory = GeneralUtility::makeInstance(IconFactory::class);
 
             $saveCloseButton = $buttonBar->makeInputButton()
                 ->setName('_saveandclosedok')
@@ -34,7 +37,7 @@ class SaveCloseHook
                 ->setIcon($iconFactory->getIcon('actions-document-save-close', \TYPO3\CMS\Core\Imaging\Icon::SIZE_SMALL))
                 ->setShowLabelText(true);
 
-            $buttons[\TYPO3\CMS\Backend\Template\Components\ButtonBar::BUTTON_POSITION_LEFT][2][] = $saveCloseButton;
+            $buttons[ButtonBar::BUTTON_POSITION_LEFT][2][] = $saveCloseButton;
         }
         return $buttons;
     }
