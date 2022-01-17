@@ -25,7 +25,7 @@ class SaveCloseHook
     public function addSaveCloseButton($params, &$buttonBar)
     {
         $buttons = $params['buttons'];
-        $saveButton = $buttons[ButtonBar::BUTTON_POSITION_LEFT][2][0];
+        $saveButton = $buttons[ButtonBar::BUTTON_POSITION_LEFT][2][0] ?? null;
         if ($saveButton instanceof InputButton) {
             /** @var IconFactory $iconFactory */
             $iconFactory = GeneralUtility::makeInstance(IconFactory::class);
