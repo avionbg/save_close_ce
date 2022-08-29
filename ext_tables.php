@@ -4,3 +4,4 @@ if (!defined('TYPO3_MODE')) {
 }
 
 $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['Backend\Template\Components\ButtonBar']['getButtonsHook'][] = 'Goran\SaveCloseCe\Hooks\SaveCloseHook->addSaveCloseButton';
+$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['Backend\Template\Components\ButtonBar']['getButtonsHook'][] = 'Goran\SaveCloseCe\Hooks\SaveViewHook->addSaveViewButton';
