@@ -1,0 +1,12 @@
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+    public: false
+
+  Goran\SaveCloseCe\:
+    resource: '../Classes/*'
+  Goran\SaveCloseCe\Provider\SaveCloseProvider:
+    tags:
+      - name: event.listener
+        identifier: 'save-close-to-button-bar'

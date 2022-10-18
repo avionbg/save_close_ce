@@ -1,8 +1,9 @@
 <?php
 
-namespace Goran\SaveCloseCe\Hooks;
+namespace Goran\SaveCloseCe\Provider;
 
 use TYPO3\CMS\Backend\Template\Components\ButtonBar;
+use TYPO3\CMS\Backend\Template\Components\ModifyButtonBarEvent;
 use TYPO3\CMS\Core\Imaging\Icon;
 use TYPO3\CMS\Core\Imaging\IconFactory;
 use TYPO3\CMS\Core\Localization\LanguageService;
@@ -11,26 +12,18 @@ use TYPO3\CMS\Backend\Template\Components\Buttons\InputButton;
 
 /**
  * Add an extra save and close button at the end
- *
- * Class SaveButtonHook
- * @package Goran\SaveCloseCe\Hooks
  */
-class SaveCloseHook
+class SaveCloseProvider
 {
-    /**
-     * @param array $params
-     * @param $buttonBar
-     * @return array
-     */
-    public function addSaveCloseButton($params, &$buttonBar)
+    public function __invoke(ModifyButtonBarEvent $event): void
     {
-        $buttons = $params['buttons'];
+        $buttons = $event->getButtons();
         $saveButton = $buttons[ButtonBar::BUTTON_POSITION_LEFT][2][0] ?? null;
         if ($saveButton instanceof InputButton) {
             /** @var IconFactory $iconFactory */
             $iconFactory = GeneralUtility::makeInstance(IconFactory::class);
 
-            $saveCloseButton = $buttonBar->makeInputButton()
+            $saveCloseButton = $event->getButtonBar()->makeInputButton()
                 ->setName('_saveandclosedok')
                 ->setValue('1')
                 ->setForm($saveButton->getForm())
@@ -40,7 +33,7 @@ class SaveCloseHook
 
             $buttons[ButtonBar::BUTTON_POSITION_LEFT][2][] = $saveCloseButton;
         }
-        return $buttons;
+        $event->setButtons($buttons);
     }
 
     /**
