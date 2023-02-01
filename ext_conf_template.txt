@@ -1,0 +1,13 @@
+saveAndClose {
+    # cat=Save and close/button; type=boolean; label=Show save and close Button
+    button = 1
+    # cat=Save and close/button; type=boolean; label=Show save and close Label
+    label = 1
+}
+
+saveAndView {
+    # cat=Save and view/button; type=boolean; label=Show save and view Button
+    button = 0
+    # cat=Save and view/button; type=boolean; label=Show save and view Label
+    label = 1
+}
